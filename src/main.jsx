@@ -1,15 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
 import { MantineProvider } from '@mantine/core';
 import Root from "./root";
+
 import Home from "./routes/home";
+import Forecast from './routes/forecast';
 
 //CSS
-import './index.css'
+import './index.css';
 import '@mantine/core/styles.css';
 import '@mantine/charts/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,6 +29,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
       },
+      {
+        path: "/forecast/:param1/:param2",
+        element: <Forecast />,
+      },
       // Weitere Routen
     ],
   },
@@ -40,4 +46,4 @@ createRoot(document.getElementById('root')).render(
       </div>
     </MantineProvider>
   </StrictMode>,
-)
+);
