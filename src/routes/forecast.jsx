@@ -14,7 +14,7 @@ import { FaCloudRain, FaCloudShowersHeavy, FaSnowflake, FaSmog, FaBolt } from 'r
 import { FiSunrise, FiSunset } from 'react-icons/fi';
 
 const getWeatherCode = (code) => {
-  const iconSize = '20vw'; // 10% der Viewport-Breite
+  const iconSize = '10vw'; // 10% der Viewport-Breite
 
   switch (code) {
     case 0:
@@ -117,7 +117,7 @@ export default function Forecast() {
       >
         <Box sx={{ width: '100%', maxWidth: 800 }}>
           <Space h={20} />
-          <Typography variant="h4" align="center">
+          <Typography variant="h4" align="center" sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
             Wie wird das Wetter heute in {param3}?
           </Typography>
           <Space h={20} />
@@ -125,6 +125,7 @@ export default function Forecast() {
             <Box
               sx={{
                 display: 'flex',
+                flexDirection: { xs: 'column', sm: 'row' },
                 justifyContent: 'space-between',
                 padding: 2,
                 borderRadius: 1,
@@ -135,34 +136,34 @@ export default function Forecast() {
                 },
               }}
             >
-              <Box sx={{ flex: 1, marginRight: 2 }}>
-                <Typography variant="h6" component="div">
+              <Box sx={{ flex: 1, marginRight: { xs: 0, sm: 2 } }}>
+                <Typography variant="h6" component="div" sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }}>
                   Aktuelles Wetter in {param3}
                 </Typography>
                 <Box sx={{ marginBottom: 2 }}>
-                  <Typography variant="body2" color="inherit">
-                    Sonnenaufgang: {formatTime(forecast.daily.sunrise[0])} <FiSunrise size={20} color='yellow' />
+                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
+                    Sonnenaufgang: {formatTime(forecast.daily.sunrise[0])} <FiSunrise size={18} color='yellow' />
                   </Typography>
-                  <Typography variant="body2" color="inherit">
-                    Sonnenuntergang: {formatTime(forecast.daily.sunset[0])} <FiSunset size={20} color='yellow' />
+                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
+                    Sonnenuntergang: {formatTime(forecast.daily.sunset[0])} <FiSunset size={18} color='yellow' />
                   </Typography>
-                  <Typography variant="body2" color="inherit">
-                    Tageslichtdauer: {getDaylightDuration(forecast.daily.daylight_duration[0])} Stunden <IoIosSunny size={20} color='yellow' />
+                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
+                    Tageslichtdauer: {getDaylightDuration(forecast.daily.daylight_duration[0])} Stunden <IoIosSunny size={18} color='yellow' />
                   </Typography>
                 </Box>
                 <Box sx={{ marginBottom: 2 }}>
-                  <Typography variant="body2" color="inherit">
+                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                     Maximale Temperatur: {forecast.daily.temperature_2m_max[0]}°C
                   </Typography>
-                  <Typography variant="body2" color="inherit">
+                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                     Minimale Temperatur: {forecast.daily.temperature_2m_min[0]}°C
                   </Typography>
                 </Box>
                 <Box sx={{ marginBottom: 2 }}>
-                  <Typography variant="body2" color="inherit">
+                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                     Regenwahrscheinlichkeit: {forecast.daily.precipitation_probability_max[0]}%
                   </Typography>
-                  <Typography variant="body2" color="inherit">
+                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                     Regenmenge: {forecast.daily.rain_sum[0]} mm
                   </Typography>
                 </Box>
@@ -177,7 +178,7 @@ export default function Forecast() {
                   flex: 1,
                 }}
               >
-                <Typography variant="h4" color="inherit" sx={{ mb: 1 }}>
+                <Typography variant="h4" color="inherit" sx={{ mb: 1, fontSize: { xs: '2rem', sm: '3rem' } }}>
                   {getWeatherCode(forecast.daily.weather_code[0])}
                 </Typography>
               </Box>
@@ -185,7 +186,7 @@ export default function Forecast() {
           )}
           <Space h={20} />
           {forecast.hourly && (
-            <ResponsiveContainer width="100%" height={400}>
+            <ResponsiveContainer width="100%" height={300}>
               <ComposedChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" label={{ value: 'Zeit', position: 'insideBottomRight', offset: -5 }} />
@@ -195,6 +196,7 @@ export default function Forecast() {
                   yAxisId="left" 
                   label={{ value: 'Temperatur (°C)', angle: -90, position: 'insideLeft', offset: 10 }} 
                   domain={['auto', 'auto']}
+                  tick={{ fontSize: 12 }}
                 />
 
                 {/* Right Y-Axis for Rain and Precipitation Probability */}
@@ -205,10 +207,11 @@ export default function Forecast() {
                     value: 'Regenmenge (mm)', 
                     angle: -90, 
                     position: 'insideRight', 
-                    offset: 10, 
-                    dy: 0
+                    offset: 15, 
+                    dy: -30
                   }} 
                   domain={['auto', 'auto']}  // Set domain for Rain axis
+                  tick={{ fontSize: 12 }}
                 />
                 
                 {/* Second Right Y-Axis for Precipitation Probability */}
@@ -219,10 +222,11 @@ export default function Forecast() {
                     value: 'Regenwahrscheinlichkeit (%)', 
                     angle: -90, 
                     position: 'insideRight', 
-                    offset: 10, 
+                    offset: 15, 
                     dy: -80  // Adjust vertical position for separation
                   }} 
                   domain={[0, 100]}  // Set domain for Percentage axis
+                  tick={{ fontSize: 12 }}
                 />
 
                 <Tooltip
@@ -246,7 +250,7 @@ export default function Forecast() {
                   type="monotone" 
                   dataKey="temperature" 
                   stroke="red" 
-                  activeDot={{ r: 8 }} 
+                  activeDot={{ r: 6 }} 
                   name="Temperatur (°C)" 
                 />
                 <Bar 
