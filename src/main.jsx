@@ -5,25 +5,39 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { MantineProvider } from '@mantine/core';
+import Root from "./root";
+import Home from "./routes/home";
+
+//CSS
 import './index.css'
 import '@mantine/core/styles.css';
 import '@mantine/charts/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Root from "./routes/root";
-import Home from "./routes/home";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Root />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      // Weitere Routen
+    ],
   },
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <MantineProvider>
-      <Root />
-      <RouterProvider router={router} />
+      <div id='content'>
+        <RouterProvider router={router} />
+      </div>
     </MantineProvider>
   </StrictMode>,
 )

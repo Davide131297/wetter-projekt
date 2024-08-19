@@ -10,9 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@fontsource/roboto": "^5.0.14",
     "@mantine/charts": "^7.12.1",
     "@mantine/core": "^7.12.1",
     "@mantine/hooks": "^7.12.1",
+    "@mui/material": "^5.16.7",
     "bootstrap": "^5.3.3",
     "circle-flags": "github:HatScripts/circle-flags",
     "date-fns": "^3.6.0",
