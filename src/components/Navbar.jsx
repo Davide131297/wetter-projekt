@@ -42,7 +42,7 @@ export default function Navigation() {
   const handleOptionChange = (event, value) => {
     console.log('Selected option:', value);
     if (value) {
-      navigate(`/forecast/${value.latitude}/${value.longitude}`);
+      navigate(`/forecast/${value.latitude}/${value.longitude}/${value.name}`);
     }
   };
 
