@@ -30,7 +30,7 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/forecast/:param1/:param2/:param3",
+        path: "/forecast/:param1/:param2/:param3/:param4",
         element: <Forecast />,
       },
       // Weitere Routen

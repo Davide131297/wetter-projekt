@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { Center, Space } from '@mantine/core';
+import { Space, ButtonGroup, Button } from '@mantine/core';
 import Typography from '@mui/material/Typography';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -12,10 +12,10 @@ import {
 } from 'react-icons/io';
 import { FaCloudRain, FaCloudShowersHeavy, FaSnowflake, FaSmog, FaBolt } from 'react-icons/fa';
 import { FiSunrise, FiSunset } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 const getWeatherCode = (code) => {
   const iconSize = '10vw'; // 10% der Viewport-Breite
-
   switch (code) {
     case 0:
       return <IoIosSunny style={{ width: iconSize, height: iconSize }} />;
@@ -81,12 +81,13 @@ const theme = createTheme({
 });
 
 export default function Forecast() {
-  const { param1, param2, param3 } = useParams();
+  const { param1, param2, param3, param4 } = useParams();
   const location = useLocation();
   const [forecast, setForecast] = useState({ daily: null, hourly: null });
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${param1}&longitude=${param2}&hourly=temperature_2m,precipitation_probability,rain,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,rain_sum,precipitation_probability_max&timezone=auto&forecast_days=1`)
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${param1}&longitude=${param2}&hourly=temperature_2m,precipitation_probability,rain,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,rain_sum,precipitation_probability_max&timezone=auto&forecast_days=${param4}`)
       .then(response => response.json())
       .then(data => {
         console.log("Wetterdaten Täglich", data.daily);
@@ -94,7 +95,7 @@ export default function Forecast() {
         setForecast({ daily: data.daily, hourly: data.hourly });
       })
       .catch(error => console.error('Fehler beim Abrufen der Wetterdaten:', error));
-  }, [location, param1, param2]);
+  }, [location, param1, param2, param3, param4]);
 
   const chartData = forecast.hourly?.time?.map((time, index) => ({
     time: formatTime(time),
@@ -102,6 +103,12 @@ export default function Forecast() {
     precipitationProbability: forecast.hourly.precipitation_probability[index],
     rain: forecast.hourly.rain[index],
   })) || [];
+
+  function handleForeCastDurationClick(days) {
+    return () => {
+      navigate(`/forecast/${param1}/${param2}/${param3}/${days}`);
+    };
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -116,9 +123,18 @@ export default function Forecast() {
         }}
       >
         <Box sx={{ width: '100%', maxWidth: 800 }}>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <ButtonGroup variant="contained" aria-label="forecast duration">
+            <Button onClick={handleForeCastDurationClick(1)}>Heute</Button>
+            <Button onClick={handleForeCastDurationClick(3)}>3 Tage</Button>
+            <Button onClick={handleForeCastDurationClick(7)}>7 Tage</Button>
+            <Button onClick={handleForeCastDurationClick(13)}>13 Tage</Button>
+            <Button onClick={handleForeCastDurationClick(16)}>16 Tage</Button>
+          </ButtonGroup>
+        </Box>
           <Space h={20} />
           <Typography variant="h4" align="center" sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
-            Wie wird das Wetter heute in {param3}?
+            Das Wetter in {param3}
           </Typography>
           <Space h={20} />
           {forecast.daily && (
@@ -190,16 +206,12 @@ export default function Forecast() {
               <ComposedChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" label={{ value: 'Zeit', position: 'insideBottomRight', offset: -5 }} />
-                
-                {/* Left Y-Axis for Temperature */}
                 <YAxis 
                   yAxisId="left" 
                   label={{ value: 'Temperatur (°C)', angle: -90, position: 'insideLeft', offset: 10 }} 
                   domain={['auto', 'auto']}
                   tick={{ fontSize: 12 }}
                 />
-
-                {/* Right Y-Axis for Rain and Precipitation Probability */}
                 <YAxis 
                   yAxisId="right" 
                   orientation="right" 
@@ -210,11 +222,9 @@ export default function Forecast() {
                     offset: 15, 
                     dy: -30
                   }} 
-                  domain={['auto', 'auto']}  // Set domain for Rain axis
+                  domain={['auto', 'auto']} 
                   tick={{ fontSize: 12 }}
                 />
-                
-                {/* Second Right Y-Axis for Precipitation Probability */}
                 <YAxis 
                   yAxisId="right2" 
                   orientation="right" 
@@ -223,12 +233,11 @@ export default function Forecast() {
                     angle: -90, 
                     position: 'insideRight', 
                     offset: 15, 
-                    dy: -80  // Adjust vertical position for separation
+                    dy: -80  
                   }} 
-                  domain={[0, 100]}  // Set domain for Percentage axis
+                  domain={[0, 100]}  
                   tick={{ fontSize: 12 }}
                 />
-
                 <Tooltip
                   formatter={(value, name) => {
                     if (name === 'temperature') return [`${value}°C`, 'Temperatur'];
