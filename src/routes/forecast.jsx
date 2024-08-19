@@ -5,9 +5,11 @@ import Typography from '@mui/material/Typography';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+  ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
-import { IoIosPartlySunny, IoIosSunny } from 'react-icons/io';
+import {
+  IoIosPartlySunny, IoIosSunny
+} from 'react-icons/io';
 import { FaCloudRain, FaCloudShowersHeavy, FaSnowflake, FaSmog, FaBolt } from 'react-icons/fa';
 import { FiSunrise, FiSunset } from 'react-icons/fi';
 
@@ -184,7 +186,7 @@ export default function Forecast() {
           <Space h={20} />
           {forecast.hourly && (
             <ResponsiveContainer width="100%" height={400}>
-              <LineChart data={chartData}>
+              <ComposedChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" label={{ value: 'Zeit', position: 'insideBottomRight', offset: -5 }} />
                 
@@ -195,12 +197,32 @@ export default function Forecast() {
                   domain={['auto', 'auto']}
                 />
 
-                {/* Right Y-Axis for Rain */}
+                {/* Right Y-Axis for Rain and Precipitation Probability */}
                 <YAxis 
                   yAxisId="right" 
                   orientation="right" 
-                  label={{ value: 'Regenmenge (mm)', angle: -90, position: 'insideRight', offset: 10 }} 
-                  domain={['auto', 'auto']}
+                  label={{ 
+                    value: 'Regenmenge (mm)', 
+                    angle: -90, 
+                    position: 'insideRight', 
+                    offset: 10, 
+                    dy: 0
+                  }} 
+                  domain={['auto', 'auto']}  // Set domain for Rain axis
+                />
+                
+                {/* Second Right Y-Axis for Precipitation Probability */}
+                <YAxis 
+                  yAxisId="right2" 
+                  orientation="right" 
+                  label={{ 
+                    value: 'Regenwahrscheinlichkeit (%)', 
+                    angle: -90, 
+                    position: 'insideRight', 
+                    offset: 10, 
+                    dy: -80  // Adjust vertical position for separation
+                  }} 
+                  domain={[0, 100]}  // Set domain for Percentage axis
                 />
 
                 <Tooltip
@@ -227,21 +249,20 @@ export default function Forecast() {
                   activeDot={{ r: 8 }} 
                   name="Temperatur (°C)" 
                 />
-                <Line 
+                <Bar 
                   yAxisId="right" 
-                  type="monotone" 
                   dataKey="rain" 
-                  stroke="blue" 
+                  fill="blue" 
                   name="Regenmenge (mm)" 
                 />
                 <Line 
-                  yAxisId="right" 
+                  yAxisId="right2" 
                   type="monotone" 
                   dataKey="precipitationProbability" 
-                  stroke="#1e90ff" 
+                  stroke="green" 
                   name="Regenwahrscheinlichkeit (%)" 
                 />
-              </LineChart>
+              </ComposedChart>
             </ResponsiveContainer>
           )}
         </Box>
