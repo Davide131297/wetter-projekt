@@ -10,7 +10,6 @@ export default function Home() {
     const [value, setValue] = useState(''); // Sucheingabe
     const [valueDays, setValueDays] = useState(''); // Tage
     const [searchedData, setSearchedData] = useState([]); // Ergebnisse aus der Suche
-    const [searchedLocation, setSearchedLocation] = useState({ latitude: null, longitude: null, countryCode: null });
 
     useEffect(() => {
         if (navigator.geolocation) {
@@ -88,18 +87,43 @@ export default function Home() {
     function handleFetchCurrentLocation() {
         if (navigator.geolocation) {
             setValue('');
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setLocation({
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude
-                    });
-                    fetchWeatherData(position.coords.latitude, position.coords.longitude);
-                },
-                (error) => {
-                    console.error("Error fetching location: ", error);
+            navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+                if (result.state === 'granted') {
+                    // Berechtigung erteilt
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            setLocation({
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude
+                            });
+                            fetchWeatherData(position.coords.latitude, position.coords.longitude);
+                        },
+                        (error) => {
+                            console.error("Error fetching location: ", error);
+                        }
+                    );
+                } else if (result.state === 'prompt') {
+                    // Berechtigung noch nicht erteilt, erneut fragen
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            setLocation({
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude
+                            });
+                            fetchWeatherData(position.coords.latitude, position.coords.longitude);
+                        },
+                        (error) => {
+                            console.error("Error fetching location: ", error);
+                            if (error.code === error.PERMISSION_DENIED) {
+                                alert('Bitte erlauben Sie den Zugriff auf Ihren Standort, um diese Funktion zu nutzen.');
+                            }
+                        }
+                    );
+                } else if (result.state === 'denied') {
+                    // Berechtigung verweigert
+                    alert('Bitte erlauben Sie den Zugriff auf Ihren Standort, um diese Funktion zu nutzen.');
                 }
-            );
+            });
         } else {
             console.error("Geolocation is not supported by this browser.");
         }
@@ -165,11 +189,7 @@ export default function Home() {
                 </Table>
             </Container>
 
-            {searchedLocation.latitude && searchedLocation.longitude && searchedLocation.countryCode ? (
-                <img src={`https://hatscripts.github.io/circle-flags/flags/${searchedLocation.countryCode}.svg`} width="48" alt="Country Flag" />
-            ) : null}
-
-            {location.latitude && location.longitude ? (
+            {weatherData.rain && weatherData.temperature && weatherData.time ? (
                 <>
                     <Container>
                         <ComposedChart width={800} height={280} data={formattedWeatherData}>
@@ -185,7 +205,7 @@ export default function Home() {
                     </Container>
                 </>
             ) : (
-                <p>Fetching location...</p>
+                <p>No data...</p>
             )}
         </>
     );
