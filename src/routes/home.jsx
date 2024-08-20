@@ -9,7 +9,7 @@ export default function Home() {
         <Box>
           <Space h={20} />
           <h1>Home</h1>
-          <p>Willkommen in der Mantine-App!</p>
+          <p>Willkommen in der Wetter-App!</p>
           <Space h={20} />
         </Box>
         </Center>

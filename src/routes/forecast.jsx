@@ -4,64 +4,11 @@ import { Space, ButtonGroup, Button } from '@mantine/core';
 import Typography from '@mui/material/Typography';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import {
-  ComposedChart, Line, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
-} from 'recharts';
-import {
-  IoIosPartlySunny, IoIosSunny
-} from 'react-icons/io';
+import { IoIosPartlySunny, IoIosSunny } from 'react-icons/io';
 import { FaCloudRain, FaCloudShowersHeavy, FaSnowflake, FaSmog, FaBolt } from 'react-icons/fa';
-import { FiSunrise, FiSunset } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-
-const getWeatherCode = (code) => {
-  const iconSize = '10vw'; // 10% der Viewport-Breite
-  switch (code) {
-    case 0:
-      return <IoIosSunny style={{ width: iconSize, height: iconSize }} />;
-    case 1:
-    case 2:
-    case 3:
-      return <IoIosPartlySunny style={{ width: iconSize, height: iconSize }} />;
-    case 45:
-    case 48:
-      return <FaSmog style={{ width: iconSize, height: iconSize }} />;
-    case 51:
-    case 53:
-    case 55:
-      return <FaCloudRain style={{ width: iconSize, height: iconSize }} />;
-    case 56:
-    case 57:
-      return <FaCloudRain style={{ width: iconSize, height: iconSize }} />;
-    case 61:
-    case 63:
-    case 65:
-      return <FaCloudShowersHeavy style={{ width: iconSize, height: iconSize }} />;
-    case 66:
-    case 67:
-      return <FaCloudShowersHeavy style={{ width: iconSize, height: iconSize }} />;
-    case 71:
-    case 73:
-    case 75:
-      return <FaSnowflake style={{ width: iconSize, height: iconSize }} />;
-    case 77:
-      return <FaSnowflake style={{ width: iconSize, height: iconSize }} />;
-    case 80:
-    case 81:
-    case 82:
-      return <FaCloudShowersHeavy style={{ width: iconSize, height: iconSize }} />;
-    case 85:
-    case 86:
-      return <FaSnowflake style={{ width: iconSize, height: iconSize }} />;
-    case 95:
-      return <FaBolt style={{ width: iconSize, height: iconSize }} />;
-    case 96:
-    case 99:
-      return <FaBolt style={{ width: iconSize, height: iconSize }} />;
-    default:
-      return 'Unbekannter Wettercode';
-  }
-};
+import ForecastOneDay from '../components/forecastOneDay';
+import ForecastMoreDays from '../components/forecastMoreDays';
 
 const getDaylightDuration = (duration) => Math.floor(duration / 3600);
 
@@ -80,9 +27,13 @@ const theme = createTheme({
   },
 });
 
+const getDate = (isoString) => {
+  const date = new Date(isoString);
+  return date.toLocaleDateString('de-DE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+};
+
 export default function Forecast() {
   const { param1, param2, param3, param4 } = useParams();
-  const location = useLocation();
   const [forecast, setForecast] = useState({ daily: null, hourly: null });
   const navigate = useNavigate();
 
@@ -95,7 +46,63 @@ export default function Forecast() {
         setForecast({ daily: data.daily, hourly: data.hourly });
       })
       .catch(error => console.error('Fehler beim Abrufen der Wetterdaten:', error));
-  }, [location, param1, param2, param3, param4]);
+  }, [param1, param2, param3, param4]);
+
+  const getWeatherCode = (code) => {
+
+    let iconSize;
+    if (param4 === '1') {
+      iconSize = '15vw'; // 10% der Viewport-Breite
+    } else {
+      iconSize = '3vw'; // 5% der Viewport-Breite
+    }
+
+    switch (code) {
+      case 0:
+        return <IoIosSunny style={{ width: iconSize, height: iconSize }} />;
+      case 1:
+      case 2:
+      case 3:
+        return <IoIosPartlySunny style={{ width: iconSize, height: iconSize }} />;
+      case 45:
+      case 48:
+        return <FaSmog style={{ width: iconSize, height: iconSize }} />;
+      case 51:
+      case 53:
+      case 55:
+        return <FaCloudRain style={{ width: iconSize, height: iconSize }} />;
+      case 56:
+      case 57:
+        return <FaCloudRain style={{ width: iconSize, height: iconSize }} />;
+      case 61:
+      case 63:
+      case 65:
+        return <FaCloudShowersHeavy style={{ width: iconSize, height: iconSize }} />;
+      case 66:
+      case 67:
+        return <FaCloudShowersHeavy style={{ width: iconSize, height: iconSize }} />;
+      case 71:
+      case 73:
+      case 75:
+        return <FaSnowflake style={{ width: iconSize, height: iconSize }} />;
+      case 77:
+        return <FaSnowflake style={{ width: iconSize, height: iconSize }} />;
+      case 80:
+      case 81:
+      case 82:
+        return <FaCloudShowersHeavy style={{ width: iconSize, height: iconSize }} />;
+      case 85:
+      case 86:
+        return <FaSnowflake style={{ width: iconSize, height: iconSize }} />;
+      case 95:
+        return <FaBolt style={{ width: iconSize, height: iconSize }} />;
+      case 96:
+      case 99:
+        return <FaBolt style={{ width: iconSize, height: iconSize }} />;
+      default:
+        return 'Unbekannter Wettercode';
+    }
+  };
 
   const chartData = forecast.hourly?.time?.map((time, index) => ({
     time: formatTime(time),
@@ -116,14 +123,21 @@ export default function Forecast() {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
+          justifyContent: 'flex-start', // Startet die Komponente ab 64px von oben
           alignItems: 'center',
           minHeight: '100vh',
-          padding: 2,
+          paddingTop: '20px', // Top padding für die gesamte Komponente
         }}
       >
-        <Box sx={{ width: '100%', maxWidth: 800 }}>
-        <Box display="flex" justifyContent="center" alignItems="center">
+        <Box
+          sx={{
+            width: '100%', 
+            maxWidth: 800,
+            display: 'flex',
+            justifyContent: 'center', // Zentriert das innere Box-Element horizontal
+            marginBottom: 2, // Abstand nach unten
+          }}
+        >
           <ButtonGroup variant="contained" aria-label="forecast duration">
             <Button onClick={handleForeCastDurationClick(1)}>Heute</Button>
             <Button onClick={handleForeCastDurationClick(3)}>3 Tage</Button>
@@ -132,153 +146,29 @@ export default function Forecast() {
             <Button onClick={handleForeCastDurationClick(16)}>16 Tage</Button>
           </ButtonGroup>
         </Box>
-          <Space h={20} />
-          <Typography variant="h4" align="center" sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
-            Das Wetter in {param3}
-          </Typography>
-          <Space h={20} />
-          {forecast.daily && (
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: { xs: 'column', sm: 'row' },
-                justifyContent: 'space-between',
-                padding: 2,
-                borderRadius: 1,
-                bgcolor: 'primary.main',
-                color: 'white',
-                '&:hover': {
-                  bgcolor: 'primary.dark',
-                },
-              }}
-            >
-              <Box sx={{ flex: 1, marginRight: { xs: 0, sm: 2 } }}>
-                <Typography variant="h6" component="div" sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }}>
-                  Aktuelles Wetter in {param3}
-                </Typography>
-                <Box sx={{ marginBottom: 2 }}>
-                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
-                    Sonnenaufgang: {formatTime(forecast.daily.sunrise[0])} <FiSunrise size={18} color='yellow' />
-                  </Typography>
-                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
-                    Sonnenuntergang: {formatTime(forecast.daily.sunset[0])} <FiSunset size={18} color='yellow' />
-                  </Typography>
-                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
-                    Tageslichtdauer: {getDaylightDuration(forecast.daily.daylight_duration[0])} Stunden <IoIosSunny size={18} color='yellow' />
-                  </Typography>
-                </Box>
-                <Box sx={{ marginBottom: 2 }}>
-                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
-                    Maximale Temperatur: {forecast.daily.temperature_2m_max[0]}°C
-                  </Typography>
-                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
-                    Minimale Temperatur: {forecast.daily.temperature_2m_min[0]}°C
-                  </Typography>
-                </Box>
-                <Box sx={{ marginBottom: 2 }}>
-                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
-                    Regenwahrscheinlichkeit: {forecast.daily.precipitation_probability_max[0]}%
-                  </Typography>
-                  <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
-                    Regenmenge: {forecast.daily.rain_sum[0]} mm
-                  </Typography>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                  textAlign: 'center',
-                  flex: 1,
-                }}
-              >
-                <Typography variant="h4" color="inherit" sx={{ mb: 1, fontSize: { xs: '2rem', sm: '3rem' } }}>
-                  {getWeatherCode(forecast.daily.weather_code[0])}
-                </Typography>
-              </Box>
-            </Box>
-          )}
-          <Space h={20} />
-          {forecast.hourly && (
-            <ResponsiveContainer width="100%" height={300}>
-              <ComposedChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="time" label={{ value: 'Zeit', position: 'insideBottomRight', offset: -5 }} />
-                <YAxis 
-                  yAxisId="left" 
-                  label={{ value: 'Temperatur (°C)', angle: -90, position: 'insideLeft', offset: 10 }} 
-                  domain={['auto', 'auto']}
-                  tick={{ fontSize: 12 }}
-                />
-                <YAxis 
-                  yAxisId="right" 
-                  orientation="right" 
-                  label={{ 
-                    value: 'Regenmenge (mm)', 
-                    angle: -90, 
-                    position: 'insideRight', 
-                    offset: 15, 
-                    dy: -30
-                  }} 
-                  domain={['auto', 'auto']} 
-                  tick={{ fontSize: 12 }}
-                />
-                <YAxis 
-                  yAxisId="right2" 
-                  orientation="right" 
-                  label={{ 
-                    value: 'Regenwahrscheinlichkeit (%)', 
-                    angle: -90, 
-                    position: 'insideRight', 
-                    offset: 15, 
-                    dy: -80  
-                  }} 
-                  domain={[0, 100]}  
-                  tick={{ fontSize: 12 }}
-                />
-                <Tooltip
-                  formatter={(value, name) => {
-                    if (name === 'temperature') return [`${value}°C`, 'Temperatur'];
-                    if (name === 'precipitationProbability') return [`${value}%`, 'Regenwahrscheinlichkeit'];
-                    if (name === 'rain') return [`${value} mm`, 'Regenmenge'];
-                    return [value, name];
-                  }}
-                />
-                <Legend
-                  formatter={(value) => {
-                    if (value === 'temperature') return 'Temperatur (°C)';
-                    if (value === 'precipitationProbability') return 'Regenwahrscheinlichkeit (%)';
-                    if (value === 'rain') return 'Regenmenge (mm)';
-                    return value;
-                  }}
-                />
-                <Line 
-                  yAxisId="left" 
-                  type="monotone" 
-                  dataKey="temperature" 
-                  stroke="red" 
-                  activeDot={{ r: 6 }} 
-                  name="Temperatur (°C)" 
-                />
-                <Bar 
-                  yAxisId="right" 
-                  dataKey="rain" 
-                  fill="blue" 
-                  name="Regenmenge (mm)" 
-                />
-                <Line 
-                  yAxisId="right2" 
-                  type="monotone" 
-                  dataKey="precipitationProbability" 
-                  stroke="green" 
-                  name="Regenwahrscheinlichkeit (%)" 
-                />
-              </ComposedChart>
-            </ResponsiveContainer>
-          )}
-        </Box>
+        <Typography variant="h4" align="center" sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
+          Das Wetter in {param3}
+        </Typography>
+        <Space h={20} />
+        {param4 === '1' && (
+          <ForecastOneDay 
+            forecast={forecast} 
+            param3={param3} 
+            formatTime={formatTime} 
+            getDaylightDuration={getDaylightDuration} 
+            getWeatherCode={getWeatherCode}
+            chartData={chartData}
+          />
+        )}
+        {parseInt(param4, 10) >= 3 && (
+          <ForecastMoreDays
+            forecast={forecast}
+            getDate={getDate}
+            formatTime={formatTime}
+            getDaylightDuration={getDaylightDuration}
+            getWeatherCode={getWeatherCode}
+          />
+        )}
       </Box>
     </ThemeProvider>
   );
