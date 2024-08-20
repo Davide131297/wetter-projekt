@@ -1,3 +1,23 @@
 .accordionHead {
     margin-right: 10px;
 }
+
+.accordionBody {
+    margin: 5px
+}
+
+.accordion-summary .forecast-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+  
+.forecast-header > div {
+    margin-right: 20px;
+}
+  
+.daylight-info p {
+    margin-left: 10px;
+}
+  
