@@ -18,6 +18,8 @@ import {
   Bar
 } from 'recharts';
 import './components.css';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 function summarizeWeather(hourlyData, startHour, endHour) {
   if (!hourlyData || !hourlyData.time || !hourlyData.temperature_2m || !hourlyData.precipitation_probability || !hourlyData.rain) {
@@ -77,6 +79,9 @@ function generateChartData(hourlyData, date) {
 }
 
 export default function ForecastMoreDays({ forecast, getDate, formatTime, getDaylightDuration, getWeatherCode }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   if (!forecast || !forecast.daily || !forecast.hourly) {
     return <div>Keine Daten verfügbar</div>;
   }
@@ -131,15 +136,19 @@ export default function ForecastMoreDays({ forecast, getDate, formatTime, getDay
                   );
                 })}
                 {forecast.hourly && (
-                  <ResponsiveContainer width="100%" height={250}>
+                  <ResponsiveContainer width="100%" height={isMobile ? 200 : 250}>
                     <ComposedChart data={chartData}>
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="time" label={{ value: 'Zeit', position: 'insideBottomRight', offset: -5 }} />
+                      <XAxis 
+                        dataKey="time" 
+                        label={{ value: 'Zeit', position: 'insideBottomRight', offset: -5, fontSize: isMobile ? 10 : 12 }} 
+                        tick={{ fontSize: isMobile ? 10 : 12 }}
+                      />
                       <YAxis 
                         yAxisId="left" 
-                        label={{ value: 'Temperatur (°C)', angle: -90, position: 'insideLeft', offset: 10 }} 
+                        label={{ value: 'Temperatur (°C)', angle: -90, position: 'insideLeft', offset: 10, dy: isMobile ? 30 : 60 ,fontSize: isMobile ? 10 : 12 }} 
                         domain={['auto', 'auto']}
-                        tick={{ fontSize: 10 }}
+                        tick={{ fontSize: isMobile ? 10 : 12 }}
                       />
                       <YAxis 
                         yAxisId="right" 
@@ -149,10 +158,11 @@ export default function ForecastMoreDays({ forecast, getDate, formatTime, getDay
                           angle: -90, 
                           position: 'insideRight', 
                           offset: 15, 
-                          dy: -30
+                          dy: -30,
+                          fontSize: isMobile ? 10 : 12 
                         }} 
                         domain={['auto', 'auto']} 
-                        tick={{ fontSize: 10 }}
+                        tick={{ fontSize: isMobile ? 10 : 12 }}
                       />
                       <YAxis 
                         yAxisId="right2" 
@@ -162,10 +172,11 @@ export default function ForecastMoreDays({ forecast, getDate, formatTime, getDay
                           angle: -90, 
                           position: 'insideRight', 
                           offset: 15, 
-                          dy: -80  
+                          dy: isMobile ? -50 : -80,
+                          fontSize: isMobile ? 10 : 12 
                         }} 
                         domain={[0, 100]}  
-                        tick={{ fontSize: 10 }}
+                        tick={{ fontSize: isMobile ? 10 : 12 }}
                       />
                       <Tooltip
                         formatter={(value, name) => {
@@ -177,10 +188,10 @@ export default function ForecastMoreDays({ forecast, getDate, formatTime, getDay
                       />
                       <Legend
                         formatter={(value) => {
-                          if (value === 'temperature') return 'Temperatur (°C)';
-                          if (value === 'precipitationProbability') return 'Regenwahrscheinlichkeit (%)';
-                          if (value === 'rain') return 'Regenmenge (mm)';
-                          return value;
+                          if (value === 'temperature') return <span style={{ fontSize: isMobile ? 10 : 12 }}>Temperatur (°C)</span>;
+                          if (value === 'precipitationProbability') return <span style={{ fontSize: isMobile ? 10 : 12 }}>Regenwahrscheinlichkeit (%)</span>;
+                          if (value === 'rain') return <span style={{ fontSize: isMobile ? 10 : 12 }}>Regenmenge (mm)</span>;
+                          return <span style={{ fontSize: isMobile ? 10 : 12 }}>{value}</span>;
                         }}
                       />
                       <Line 

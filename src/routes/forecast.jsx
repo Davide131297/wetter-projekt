@@ -142,8 +142,6 @@ export default function Forecast() {
             <Button onClick={handleForeCastDurationClick(1)}>Heute</Button>
             <Button onClick={handleForeCastDurationClick(3)}>3 Tage</Button>
             <Button onClick={handleForeCastDurationClick(7)}>7 Tage</Button>
-            <Button onClick={handleForeCastDurationClick(13)}>13 Tage</Button>
-            <Button onClick={handleForeCastDurationClick(16)}>16 Tage</Button>
           </ButtonGroup>
         </Box>
         <Typography variant="h4" align="center" sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>

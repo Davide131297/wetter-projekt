@@ -7,11 +7,15 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Avatar from '@mui/material/Avatar';
 import { useNavigate } from 'react-router-dom';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 export default function Navigation() {
   const [options, setOptions] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (inputValue) {
@@ -78,7 +82,7 @@ export default function Navigation() {
               </Box>
             )}
             renderInput={(params) => <TextField {...params} label="Standort suchen" variant="outlined" />}
-            sx={{ width: 300 }} // Hier die Breite des Autocomplete-Feldes anpassen
+            sx={{ width: isMobile ? '20vh' : 300 }} // Hier die Breite des Autocomplete-Feldes anpassen
           />
         </Container>
       </Navbar>
