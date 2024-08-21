@@ -17,7 +17,6 @@ import {
   Line,
   Bar
 } from 'recharts';
-import './components.css';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 
@@ -99,7 +98,7 @@ export default function ForecastMoreDays({ forecast, getDate, formatTime, getDay
         const chartData = generateChartData(forecast.hourly, new Date(time).toDateString());
 
         return (
-          <Accordion key={index}>
+          <Accordion key={index} sx={isMobile ? { margin: '0 10px' } : {}}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} className="accordion-summary">
               <Box className="forecast-header" display="flex" justifyContent="space-between" alignItems="center" width="100%">
                 <Box display="flex" flexDirection="row" alignItems="center">
