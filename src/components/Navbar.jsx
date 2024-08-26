@@ -83,6 +83,7 @@ export default function Navigation() {
             )}
             renderInput={(params) => <TextField {...params} label="Standort suchen" variant="outlined" />}
             sx={{ width: isMobile ? '20vh' : 300 }} // Hier die Breite des Autocomplete-Feldes anpassen
+            noOptionsText="Keine Ergebnisse gefunden"
           />
         </Container>
       </Navbar>
