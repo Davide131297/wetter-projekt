@@ -9,6 +9,13 @@ import { FaCloudRain, FaCloudShowersHeavy, FaSnowflake, FaSmog, FaBolt } from 'r
 import { useNavigate } from 'react-router-dom';
 import ForecastOneDay from '../components/forecastOneDay';
 import ForecastMoreDays from '../components/forecastMoreDays';
+import Lottie from 'lottie-react';
+import animationSunny from '../assets/animation/Animation_Sonne.json';
+import animationPartlySunny from '../assets/animation/Animation_PartlySunny.json';
+import animationCloudRain from '../assets/animation/Animation_CloudRain.json';
+import animationBewoelkt from '../assets/animation/Animation_Bewoelkt.json';
+import animationSnow from '../assets/animation/Animation_Snow.json';
+import animationHeavyRain from '../assets/animation/Animation_HeavyRain.json';
 
 const getDaylightDuration = (duration) => Math.floor(duration / 3600);
 
@@ -59,46 +66,46 @@ export default function Forecast() {
 
     switch (code) {
       case 0:
-        return <IoIosSunny style={{ width: iconSize, height: iconSize }} />;
+        return <Lottie animationData={animationSunny} style={{ width: iconSize, height: iconSize }} />;
       case 1:
       case 2:
       case 3:
-        return <IoIosPartlySunny style={{ width: iconSize, height: iconSize }} />;
+        return <Lottie animationData={animationPartlySunny} style={{ width: iconSize, height: iconSize }} />;
       case 45:
       case 48:
-        return <FaSmog style={{ width: iconSize, height: iconSize }} />;
+        return <Lottie animationData={animationBewoelkt} style={{ width: iconSize, height: iconSize }} />;
       case 51:
       case 53:
       case 55:
-        return <FaCloudRain style={{ width: iconSize, height: iconSize }} />;
+        return <Lottie animationData={animationCloudRain} style={{ width: iconSize, height: iconSize }} />;
       case 56:
       case 57:
-        return <FaCloudRain style={{ width: iconSize, height: iconSize }} />;
+        return <Lottie animationData={animationCloudRain} style={{ width: iconSize, height: iconSize }} />;
       case 61:
       case 63:
       case 65:
-        return <FaCloudShowersHeavy style={{ width: iconSize, height: iconSize }} />;
+        return <Lottie animationData={animationHeavyRain} style={{ width: iconSize, height: iconSize }} />;
       case 66:
       case 67:
-        return <FaCloudShowersHeavy style={{ width: iconSize, height: iconSize }} />;
+        return <Lottie animationData={animationHeavyRain} style={{ width: iconSize, height: iconSize }} />;
       case 71:
       case 73:
       case 75:
-        return <FaSnowflake style={{ width: iconSize, height: iconSize }} />;
+        return <Lottie animationData={animationSnow} style={{ width: iconSize, height: iconSize }} />;
       case 77:
-        return <FaSnowflake style={{ width: iconSize, height: iconSize }} />;
+        return <Lottie animationData={animationSnow} style={{ width: iconSize, height: iconSize }} />;
       case 80:
       case 81:
       case 82:
-        return <FaCloudShowersHeavy style={{ width: iconSize, height: iconSize }} />;
+        return <Lottie animationData={animationHeavyRain} style={{ width: iconSize, height: iconSize }} />;
       case 85:
       case 86:
-        return <FaSnowflake style={{ width: iconSize, height: iconSize }} />;
+        return <Lottie animationData={animationSnow} style={{ width: iconSize, height: iconSize }} />;
       case 95:
-        return <FaBolt style={{ width: iconSize, height: iconSize }} />;
+        return <Lottie animationData={animationBewoelkt} style={{ width: iconSize, height: iconSize }} />;
       case 96:
       case 99:
-        return <FaBolt style={{ width: iconSize, height: iconSize }} />;
+        return <Lottie animationData={animationBewoelkt} style={{ width: iconSize, height: iconSize }} />;
       default:
         return 'Unbekannter Wettercode';
     }
