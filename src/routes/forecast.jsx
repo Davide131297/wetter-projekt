@@ -4,8 +4,6 @@ import { Space, ButtonGroup, Button } from '@mantine/core';
 import Typography from '@mui/material/Typography';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import { IoIosPartlySunny, IoIosSunny } from 'react-icons/io';
-import { FaCloudRain, FaCloudShowersHeavy, FaSnowflake, FaSmog, FaBolt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import ForecastOneDay from '../components/forecastOneDay';
 import ForecastMoreDays from '../components/forecastMoreDays';
