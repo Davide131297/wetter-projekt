@@ -55,7 +55,7 @@ export default function Navigation() {
     <>
       <Navbar fixed="top" bg="primary" data-bs-theme="dark">
         <Container className="d-flex align-items-center">
-          <Navbar.Brand href="/wetter-projekt" className="me-3">
+          <Navbar.Brand className="me-3" onClick={() => navigate('/')}>
             <img
               alt=""
               src={Logo}

@@ -1,8 +1,29 @@
 # React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dieses Projekt wurde mit Vite und React entwickelt.
 
-Currently, two official plugins are available:
+## Wetterdatenquelle
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Die Wetterdaten stammen von [Open-Meteo](https://open-meteo.com).
+
+## Verwendete Bibliotheken
+
+In diesem Projekt wurden folgende Bibliotheken genutzt:
+
+- **MUI Core & MUI X**
+- **Mantine**
+- **Lottie React**
+- **Bootstrap**
+- **Recharts**
+- **Circle-Flags**
+- **React-Icons**
+
+Aktuelle Versionsnummer:
+
+- **1.0**
+
+Geplante Änderungen:
+
+- **Bessere Darstellung bei der Anzeige von historischer Daten mit großer Zeitspanne**
+- **Englische Sprache**
+
