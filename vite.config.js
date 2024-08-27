@@ -6,5 +6,16 @@ export default defineConfig({
   plugins: [react()],
   define: {
     'process.env': {}
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 2000, // Setzt die Warnschwelle auf 2000 kB
+    outDir: 'build', // Setzt das Ausgabeverzeichnis auf dist
   }
 })
