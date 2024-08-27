@@ -1,9 +1,6 @@
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
 import { MantineProvider } from '@mantine/core';
 import Root from "./root";
 
@@ -22,33 +19,24 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Root />,
-    children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/forecast/:param1/:param2/:param3/:param4",
-        element: <Forecast />,
-      },
-      {
-        path: "/historicalWeather",
-        element: <HistoricalWeather />,
-      }
-      // Weitere Routen
-    ],
-  },
-]);
+const router = (
+  <Router>
+    <Routes>
+      <Route path="/" element={<Root />}>
+        <Route index element={<Home />} />
+        <Route path="forecast/:param1/:param2/:param3/:param4" element={<Forecast />} />
+        <Route path="historicalWeather" element={<HistoricalWeather />} />
+        {/* Weitere Routen */}
+      </Route>
+    </Routes>
+  </Router>
+);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <MantineProvider>
       <div id='content'>
-        <RouterProvider router={router} />
+        {router}
       </div>
     </MantineProvider>
   </StrictMode>,
