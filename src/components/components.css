@@ -12,6 +12,10 @@
     align-items: center;
     width: 100%;
 }
+
+.accordion-summary {
+    background-color: #F0F8FF;
+}
   
 .forecast-header > div {
     margin-right: 20px;

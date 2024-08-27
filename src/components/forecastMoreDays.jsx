@@ -19,6 +19,7 @@ import {
 } from 'recharts';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import './components.css';
 
 function summarizeWeather(hourlyData, startHour, endHour) {
   if (!hourlyData || !hourlyData.time || !hourlyData.temperature_2m || !hourlyData.precipitation_probability || !hourlyData.rain) {
@@ -107,9 +108,9 @@ export default function ForecastMoreDays({ forecast, getDate, formatTime, getDay
                   <p>{forecast.daily.temperature_2m_max[index]}°C / {forecast.daily.temperature_2m_min[index]}°C</p>
                 </Box>
                 <Box className="daylight-info" display="flex" flexDirection="row" alignItems="center">
-                  <p><FiSunrise size={20} color='yellow'/> {formatTime(forecast.daily.sunrise[index])}</p>
-                  <p><FiSunset size={20} color='yellow'/> {formatTime(forecast.daily.sunset[index])}</p>
-                  <p><IoIosSunny size={20} color='yellow'/> {getDaylightDuration(forecast.daily.daylight_duration[index])} h</p>
+                  <p><FiSunrise size={20} color='orange'/> {formatTime(forecast.daily.sunrise[index])}</p>
+                  <p><FiSunset size={20} color='orange'/> {formatTime(forecast.daily.sunset[index])}</p>
+                  <p><IoIosSunny size={20} color='orange'/> {getDaylightDuration(forecast.daily.daylight_duration[index])} h</p>
                 </Box>
               </Box>
             </AccordionSummary>
