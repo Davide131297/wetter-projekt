@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: "/wetter-projekt",
   plugins: [react()],
   define: {
     'process.env': {}
@@ -16,6 +17,5 @@ export default defineConfig({
       }
     },
     chunkSizeWarningLimit: 2000, // Setzt die Warnschwelle auf 2000 kB
-    outDir: 'build', // Setzt das Ausgabeverzeichnis auf dist
   }
 })
