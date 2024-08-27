@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import Logo from '../assets/WeatherLogo.png';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
@@ -64,6 +65,14 @@ export default function Navigation() {
             />{' '}
             Wetter-App
           </Navbar.Brand>
+          <Nav className='me-auto'>
+            <Nav.Link 
+              style={{color: 'black'}}
+              onClick={() => navigate('/historicalWeather')} 
+            >
+              Historisch
+            </Nav.Link>
+          </Nav>
           <Autocomplete
             options={options}
             getOptionLabel={(option) => option.name}

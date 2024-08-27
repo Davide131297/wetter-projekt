@@ -9,11 +9,13 @@ import Root from "./root";
 
 import Home from "./routes/home";
 import Forecast from './routes/forecast';
+import HistoricalWeather from './routes/historicalWeather';
 
 //CSS
 import './index.css';
 import '@mantine/core/styles.css';
 import '@mantine/charts/styles.css';
+import '@mantine/dates/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
         path: "/forecast/:param1/:param2/:param3/:param4",
         element: <Forecast />,
       },
+      {
+        path: "/historicalWeather",
+        element: <HistoricalWeather />,
+      }
       // Weitere Routen
     ],
   },
