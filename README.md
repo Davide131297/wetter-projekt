@@ -2,6 +2,8 @@
 
 Dieses Projekt wurde mit Vite und React entwickelt.
 
+Hier geht es zum Projekt [Wetter-Projekt](https://davide131297.github.io/wetter-projekt/)
+
 ## Wetterdatenquelle
 
 Die Wetterdaten stammen von [Open-Meteo](https://open-meteo.com).
@@ -18,12 +20,11 @@ In diesem Projekt wurden folgende Bibliotheken genutzt:
 - **Circle-Flags**
 - **React-Icons**
 
-Aktuelle Versionsnummer:
+## Aktuelle Versionsnummer
 
 - **1.0**
 
-Geplante Änderungen:
+## Geplante Änderungen
 
-- **Bessere Darstellung bei der Anzeige von historischer Daten mit großer Zeitspanne**
+- **Bessere Darstellung bei der Anzeige von historischen Daten mit großer Zeitspanne**
 - **Englische Sprache**
-
