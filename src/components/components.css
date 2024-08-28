@@ -16,7 +16,16 @@
 .accordion-summary {
     background-color: #F0F8FF;
 }
-  
+
+#date {
+    font-weight: bold;
+
+    @media (max-width: 768px) {
+        font-size: 0.8em;
+        
+    }
+}
+
 .forecast-header > div {
     margin-right: 20px;
 }
@@ -25,3 +34,8 @@
     margin-left: 10px;
 }
   
+@media (max-width: 768px) {
+    .font {
+        font-size: 0.7em;
+    }
+}

@@ -12,7 +12,7 @@ export default function ForecastOneDay({ forecast, param3, formatTime, getDaylig
             <Box
               sx={{
                 display: 'flex',
-                flexDirection: { xs: 'column', sm: 'row' },
+                flexDirection: { xs: 'row', sm: 'row' },
                 justifyContent: 'space-between',
                 padding: 1,
                 borderRadius: 1,
@@ -27,7 +27,7 @@ export default function ForecastOneDay({ forecast, param3, formatTime, getDaylig
                 <Typography variant="h6" component="div" sx={{ fontSize: { xs: '1rem', sm: '1.2rem' } }}>
                   Aktuelles Wetter in {param3}
                 </Typography>
-                <Box sx={{ marginBottom: 1 }}>
+                <Box sx={{ marginBottom: 1, marginTop: 2 }}>
                   <Typography variant="body2" color="inherit" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
                     Sonnenaufgang: {formatTime(forecast.daily.sunrise[0])} <FiSunrise size={16} color='yellow' />
                   </Typography>

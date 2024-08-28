@@ -14,6 +14,7 @@ import animationCloudRain from '../assets/animation/Animation_CloudRain.json';
 import animationBewoelkt from '../assets/animation/Animation_Bewoelkt.json';
 import animationSnow from '../assets/animation/Animation_Snow.json';
 import animationHeavyRain from '../assets/animation/Animation_HeavyRain.json';
+import { useMediaQuery } from '@mantine/hooks';
 
 const getDaylightDuration = (duration) => Math.floor(duration / 3600);
 
@@ -41,6 +42,7 @@ export default function Forecast() {
   const { param1, param2, param3, param4 } = useParams();
   const [forecast, setForecast] = useState({ daily: null, hourly: null });
   const navigate = useNavigate();
+  const matches = useMediaQuery('(max-width: 767px)');
 
   useEffect(() => {
     fetch(`https://api.open-meteo.com/v1/forecast?latitude=${param1}&longitude=${param2}&hourly=temperature_2m,precipitation_probability,rain,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,rain_sum,precipitation_probability_max&timezone=auto&forecast_days=${param4}`)
@@ -57,9 +59,9 @@ export default function Forecast() {
 
     let iconSize;
     if (param4 === '1') {
-      iconSize = '15vw'; // 10% der Viewport-Breite
+      iconSize = matches ? '50vw' : '15vw'; // 10% der Viewport-Breite
     } else {
-      iconSize = '3vw'; // 5% der Viewport-Breite
+      iconSize = matches ? '10vw' : '3vw'; // 5% der Viewport-Breite
     }
 
     switch (code) {

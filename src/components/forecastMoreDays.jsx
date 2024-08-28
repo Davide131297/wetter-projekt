@@ -101,16 +101,16 @@ export default function ForecastMoreDays({ forecast, getDate, formatTime, getDay
         return (
           <Accordion key={index} sx={isMobile ? { margin: '0 10px' } : {}}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />} className="accordion-summary">
-              <Box className="forecast-header" display="flex" justifyContent="space-between" alignItems="center" width="100%">
+              <Box className="forecast-header">
                 <Box display="flex" flexDirection="row" alignItems="center">
-                  <h3>{getDate(time)}</h3>
-                  <p>{getWeatherCode(forecast.daily.weather_code[index])}</p>
-                  <p>{forecast.daily.temperature_2m_max[index]}°C / {forecast.daily.temperature_2m_min[index]}°C</p>
+                  <p id='date'>{getDate(time)}</p>
+                  <p className='font'>{getWeatherCode(forecast.daily.weather_code[index])}</p>
+                  <p className='font'>{forecast.daily.temperature_2m_max[index]}°C / {forecast.daily.temperature_2m_min[index]}°C</p>
                 </Box>
                 <Box className="daylight-info" display="flex" flexDirection="row" alignItems="center">
-                  <p><FiSunrise size={20} color='orange'/> {formatTime(forecast.daily.sunrise[index])}</p>
-                  <p><FiSunset size={20} color='orange'/> {formatTime(forecast.daily.sunset[index])}</p>
-                  <p><IoIosSunny size={20} color='orange'/> {getDaylightDuration(forecast.daily.daylight_duration[index])} h</p>
+                  <p className='font'><FiSunrise size={20} color='orange'/> {formatTime(forecast.daily.sunrise[index])}</p>
+                  <p className='font'><FiSunset size={20} color='orange'/> {formatTime(forecast.daily.sunset[index])}</p>
+                  <p className='font'><IoIosSunny size={20} color='orange'/> {getDaylightDuration(forecast.daily.daylight_duration[index])} h</p>
                 </Box>
               </Box>
             </AccordionSummary>
