@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import { Space, ButtonGroup, Button, ScrollArea } from '@mantine/core';
+import { useParams } from 'react-router-dom';
+import { Space, ButtonGroup, Button } from '@mantine/core';
 import Typography from '@mui/material/Typography';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -155,7 +155,6 @@ export default function Forecast() {
           Das Wetter in {param3}
         </Typography>
         <Space h={20} />
-        <ScrollArea h='65vh'>
           {param4 === '1' && (
             <ForecastOneDay 
               forecast={forecast} 
@@ -175,7 +174,6 @@ export default function Forecast() {
               getWeatherCode={getWeatherCode}
             />
           )}
-        </ScrollArea>
       </Box>
     </ThemeProvider>
   );
