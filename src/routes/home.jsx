@@ -43,6 +43,11 @@ const Legend = ({ type }) => {
 export default function Home() {
   const [layerType, setLayerType] = useState('temperature');
   const [cologneTemp, setCologneTemp] = useState(null);
+  
+  useEffect(() => {
+    console.log('API_KEY:', API_KEY);
+    console.log("REACT_APP_API_KEY:", process.env.REACT_APP_API_KEY);
+  }, []);
 
   const getTileLayerUrl = () => {
     if (layerType === 'temperature') {
