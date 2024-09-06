@@ -1,0 +1,85 @@
+.headDiv {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.boxDiv {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.arrowContent {
+  margin-left: auto;
+  margin-right: 60px;
+}
+
+/* MapStyles.css */
+.select-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 9999; /* Sicherstellen, dass es über der Karte angezeigt wird */
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.mantine-Select-dropdown {
+  z-index: 10000 !important; /* Sicherstellen, dass das Dropdown-Menü sichtbar ist */
+}
+
+.legend {
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  text-align: center;
+  width: 300px; /* Breite der Legende */
+  height: 40px; /* Höhe der Legende */
+}
+
+.legend-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: xx-small;
+}
+
+.legend-gradient {
+  height: 5px; /* Höhe der farbigen Linie */
+  border: 1px solid #000;
+}
+
+.legend-gradient.temperature {
+  background: linear-gradient(to right, #0000FF, #00FFFF, #00FF00, #FFFF00, #FFA500, #FF0000);
+}
+
+.legend-gradient.clouds {
+  background: linear-gradient(to right, #ffffff, #f0f0f0, #d5d5d5, #acabab, #9d9d9d);
+}
+
+@media screen and (max-width: 768px) {
+  .arrowContent {
+    display: none;
+  }
+
+  .legend {
+    width: 200px; /* Reduzierte Breite der Legende */
+    height: 30px; /* Reduzierte Höhe der Legende */
+    padding: 5px; /* Reduzierte Polsterung */
+    bottom: 30px;
+  }
+
+  .select-container {
+    top: 5px; /* Reduzierter Abstand von oben */
+    right: 5px; /* Reduzierter Abstand von rechts */
+    padding: 5px; /* Reduzierte Polsterung */
+  }
+}
