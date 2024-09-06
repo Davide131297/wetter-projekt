@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import './MapStyles.css'; // Importiere die CSS-Datei
 import { FaLongArrowAltUp } from "react-icons/fa";
 
-const API_KEY = '21de8fce0bfaaeaf9319abac3e404d86';
+const API_KEY = process.env.REACT_APP_API_KEY;
 const deCoords = [51.163375, 10.447683];
 
 const Legend = ({ type }) => {
@@ -49,6 +49,8 @@ export default function Home() {
       return `https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${API_KEY}`;
     } else if (layerType === 'clouds') {
       return `https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${API_KEY}`;
+    } else if (layerType === 'precipitation') {
+      return `https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${API_KEY}`;
     }
   };
 
@@ -88,6 +90,7 @@ export default function Home() {
               data={[
                 { value: 'temperature', label: 'Temperatur' },
                 { value: 'clouds', label: 'Wolken' },
+                { value: 'precipitation', label: 'Niederschläge' },
               ]}
               styles={{ dropdown: { zIndex: 10000 } }} // Sicherstellen, dass das Dropdown-Menü sichtbar ist
             />
