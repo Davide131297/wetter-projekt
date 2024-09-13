@@ -4,8 +4,11 @@ import { Space } from '@mantine/core';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { IoIosSunny } from 'react-icons/io';
+import { useEffect } from 'react';
 
 export default function ForecastOneDay({ forecast, param3, formatTime, getDaylightDuration, getWeatherCode, chartData }) {
+  const currentHour = new Date().getHours();
+    const index = currentHour - 1;
     return (
         <>
         {forecast.daily && (
@@ -66,7 +69,7 @@ export default function ForecastOneDay({ forecast, param3, formatTime, getDaylig
                 }}
               >
                 <Typography variant="h4" color="inherit" sx={{ mb: 1, fontSize: { xs: '1.5rem', sm: '2rem' } }}>
-                  {getWeatherCode(forecast.daily.weather_code[0])}
+                  {getWeatherCode(forecast.hourly.weather_code[index])}
                 </Typography>
               </Box>
             </Box>
