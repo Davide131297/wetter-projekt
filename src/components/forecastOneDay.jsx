@@ -82,7 +82,7 @@ export default function ForecastOneDay({ forecast, param3, formatTime, getDaylig
                 <XAxis dataKey="time" label={{ value: 'Zeit', position: 'insideBottomRight', offset: -5 }} />
                 <YAxis 
                   yAxisId="left" 
-                  label={{ value: 'Temperatur (°C)', angle: -90, position: 'insideLeft', offset: 10 }} 
+                  label={{ value: 'Temperatur (°C)', angle: -90, position: 'insideLeft', offset: 10, dy: 40 }} 
                   domain={['auto', 'auto']}
                   tick={{ fontSize: 10 }}
                 />
