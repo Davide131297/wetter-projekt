@@ -127,7 +127,6 @@ export default function ForecastMoreDays({ forecast, getDate, formatTime, getDay
                         <>
                           <p>{weatherSummary.maxTemp}°C / {weatherSummary.minTemp}°C</p>
                           <p>{weatherSummary.precipitation}% Regenwahrscheinlichkeit</p>
-                          <p>{weatherSummary.rain} mm Regen</p>
                         </>
                       ) : (
                         <p>Keine Daten verfügbar</p>
@@ -151,20 +150,6 @@ export default function ForecastMoreDays({ forecast, getDate, formatTime, getDay
                         tick={{ fontSize: isMobile ? 10 : 12 }}
                       />
                       <YAxis 
-                        yAxisId="right" 
-                        orientation="right" 
-                        label={{ 
-                          value: 'Regenmenge (mm)', 
-                          angle: -90, 
-                          position: 'insideRight', 
-                          offset: 15, 
-                          dy: -30,
-                          fontSize: isMobile ? 10 : 12 
-                        }} 
-                        domain={['auto', 'auto']} 
-                        tick={{ fontSize: isMobile ? 10 : 12 }}
-                      />
-                      <YAxis 
                         yAxisId="right2" 
                         orientation="right" 
                         label={{ 
@@ -182,7 +167,6 @@ export default function ForecastMoreDays({ forecast, getDate, formatTime, getDay
                         formatter={(value, name) => {
                           if (name === 'temperature') return [`${value}°C`, 'Temperatur'];
                           if (name === 'precipitationProbability') return [`${value}%`, 'Regenwahrscheinlichkeit'];
-                          if (name === 'rain') return [`${value} mm`, 'Regenmenge'];
                           return [value, name];
                         }}
                       />
@@ -190,7 +174,6 @@ export default function ForecastMoreDays({ forecast, getDate, formatTime, getDay
                         formatter={(value) => {
                           if (value === 'temperature') return <span style={{ fontSize: isMobile ? 10 : 12 }}>Temperatur (°C)</span>;
                           if (value === 'precipitationProbability') return <span style={{ fontSize: isMobile ? 10 : 12 }}>Regenwahrscheinlichkeit (%)</span>;
-                          if (value === 'rain') return <span style={{ fontSize: isMobile ? 10 : 12 }}>Regenmenge (mm)</span>;
                           return <span style={{ fontSize: isMobile ? 10 : 12 }}>{value}</span>;
                         }}
                       />
@@ -202,17 +185,11 @@ export default function ForecastMoreDays({ forecast, getDate, formatTime, getDay
                         activeDot={{ r: 4 }} 
                         name="Temperatur (°C)" 
                       />
-                      <Bar 
-                        yAxisId="right" 
-                        dataKey="rain" 
-                        fill="blue" 
-                        name="Regenmenge (mm)" 
-                      />
                       <Line 
                         yAxisId="right2" 
                         type="monotone" 
                         dataKey="precipitationProbability" 
-                        stroke="green" 
+                        stroke="blue" 
                         name="Regenwahrscheinlichkeit (%)" 
                       />
                     </ComposedChart>

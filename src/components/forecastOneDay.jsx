@@ -87,19 +87,6 @@ export default function ForecastOneDay({ forecast, param3, formatTime, getDaylig
                   tick={{ fontSize: 10 }}
                 />
                 <YAxis 
-                  yAxisId="right" 
-                  orientation="right" 
-                  label={{ 
-                    value: 'Regenmenge (mm)', 
-                    angle: -90, 
-                    position: 'insideRight', 
-                    offset: 15, 
-                    dy: -30
-                  }} 
-                  domain={['auto', 'auto']} 
-                  tick={{ fontSize: 10 }}
-                />
-                <YAxis 
                   yAxisId="right2" 
                   orientation="right" 
                   label={{ 
@@ -116,7 +103,6 @@ export default function ForecastOneDay({ forecast, param3, formatTime, getDaylig
                   formatter={(value, name) => {
                     if (name === 'temperature') return [`${value}°C`, 'Temperatur'];
                     if (name === 'precipitationProbability') return [`${value}%`, 'Regenwahrscheinlichkeit'];
-                    if (name === 'rain') return [`${value} mm`, 'Regenmenge'];
                     return [value, name];
                   }}
                 />
@@ -124,7 +110,6 @@ export default function ForecastOneDay({ forecast, param3, formatTime, getDaylig
                   formatter={(value) => {
                     if (value === 'temperature') return 'Temperatur (°C)';
                     if (value === 'precipitationProbability') return 'Regenwahrscheinlichkeit (%)';
-                    if (value === 'rain') return 'Regenmenge (mm)';
                     return value;
                   }}
                 />
@@ -136,17 +121,11 @@ export default function ForecastOneDay({ forecast, param3, formatTime, getDaylig
                   activeDot={{ r: 4 }} 
                   name="Temperatur (°C)" 
                 />
-                <Bar 
-                  yAxisId="right" 
-                  dataKey="rain" 
-                  fill="blue" 
-                  name="Regenmenge (mm)" 
-                />
                 <Line 
                   yAxisId="right2" 
                   type="monotone" 
                   dataKey="precipitationProbability" 
-                  stroke="green" 
+                  stroke="blue" 
                   name="Regenwahrscheinlichkeit (%)" 
                 />
               </ComposedChart>
