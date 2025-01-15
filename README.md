@@ -26,5 +26,4 @@ In diesem Projekt wurden folgende Bibliotheken genutzt:
 
 ## Geplante Änderungen
 
-- **Bessere Darstellung bei der Anzeige von historischen Daten mit großer Zeitspanne**
-- **Englische Sprache**
+- Keine Änderungen geplant
