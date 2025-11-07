@@ -1,29 +1,81 @@
-# React + Vite
+# Wetter-App
 
-Dieses Projekt wurde mit Vite und React entwickelt.
+Eine moderne Wetter-Applikation gebaut mit Next.js, TypeScript, Tailwind CSS und shadcn/ui.
 
-Hier geht es zum Projekt [Wetter-Projekt](https://davide131297.github.io/wetter-projekt/)
+## Features
 
-## Wetterdatenquelle
+- 🌤️ Aktuelle Wettervorhersage
+- 📅 7-Tage-Vorhersage
+- ⏱️ Stündliche Vorhersage (24 Stunden)
+- 🔍 Standortsuche mit Autocomplete und Flaggen
+- 🌍 Unterstützung für weltweite Standorte
+- 📱 Responsive Design
 
-Die Wetterdaten stammen von [Open-Meteo](https://open-meteo.com).
+## Technologie-Stack
 
-## Verwendete Bibliotheken
+- **Framework**: Next.js 16 (App Router)
+- **Sprache**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI-Komponenten**: shadcn/ui
+- **Wetter-API**: Open-Meteo (openmeteo npm package)
+- **Icons**: Lucide React
 
-In diesem Projekt wurden folgende Bibliotheken genutzt:
+## Projekt-Struktur
 
-- **MUI Core & MUI X**
-- **Mantine**
-- **Lottie React**
-- **Bootstrap**
-- **Recharts**
-- **Circle-Flags**
-- **React-Icons**
+Dies ist ein Monorepo mit folgender Struktur:
 
-## Aktuelle Versionsnummer
+```
+wetter-projekt/
+├── webseite/          # Next.js Applikation
+│   ├── app/           # Next.js App Router
+│   ├── components/    # React Komponenten
+│   └── lib/           # Utility-Funktionen
+└── package.json       # Root package.json für Workspace
+```
 
-- **1.0**
+## Installation & Start
 
-## Geplante Änderungen
+### Voraussetzungen
 
-- Keine Änderungen geplant
+- Node.js 18+
+- npm oder yarn
+
+### Entwicklungsserver starten
+
+```bash
+# Im Root-Verzeichnis
+npm run dev
+
+# Oder direkt im webseite Ordner
+cd webseite
+npm run dev
+```
+
+Die Applikation ist dann unter [http://localhost:3000](http://localhost:3000) verfügbar.
+
+### Build für Production
+
+```bash
+npm run build
+npm run start
+```
+
+## Verwendung
+
+1. **Startseite**: Willkommensseite mit Anleitung
+2. **Standortsuche**: Nutze die Suchleiste in der Navbar, um einen Standort zu suchen
+3. **Wettervorhersage**: Nach Auswahl eines Standorts wird die Wettervorhersage angezeigt
+4. **Historisch**: Platzhalter-Seite für zukünftige Features
+
+## API
+
+Die App nutzt die Open-Meteo API:
+
+- **Geocoding**: `https://geocoding-api.open-meteo.com/v1/search`
+- **Wettervorhersage**: `https://api.open-meteo.com/v1/forecast`
+
+Keine API-Keys erforderlich! Open-Meteo ist eine kostenlose, offene Wetter-API.
+
+## Lizenz
+
+MIT
