@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   Droplets,
@@ -74,7 +74,7 @@ function getWeatherDescription(code: number): string {
   return weatherCodes[code] || "Unbekannt";
 }
 
-export default function WeatherPage() {
+function WeatherPageContent() {
   const searchParams = useSearchParams();
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [location, setLocation] = useState<LocationData | null>(null);
@@ -325,5 +325,13 @@ export default function WeatherPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function WeatherPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <WeatherPageContent />
+    </Suspense>
   );
 }
