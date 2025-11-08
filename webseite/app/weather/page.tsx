@@ -235,6 +235,48 @@ function WeatherPageContent() {
         </div>
       </div>
 
+      {/* Stündliche Vorhersage */}
+      <div className="border border-indigo-200 rounded-lg bg-white shadow-lg overflow-hidden">
+        <div className="bg-linear-to-r from-indigo-50 to-purple-50 px-6 py-4">
+          <h2 className="text-2xl font-semibold text-indigo-900">
+            Stündliche Vorhersage
+          </h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            Nächste 24 Stunden
+          </p>
+        </div>
+        <div className="p-6">
+          <div className="overflow-x-auto">
+            <div className="flex gap-4 pb-4">
+              {weather.hourly.time.map((timeStr, index) => (
+                <div
+                  key={index}
+                  className="border-2 border-indigo-200 rounded-lg p-3 min-w-[100px] space-y-2 bg-linear-to-br from-indigo-50 to-purple-50 hover:shadow-md transition-shadow"
+                >
+                  <p className="text-sm font-semibold text-center text-indigo-900">
+                    {new Date(timeStr).toLocaleTimeString("de-DE", {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                  <p className="text-xl font-bold text-center text-orange-600">
+                    {weather.hourly.temperature[index].toFixed(1)}°C
+                  </p>
+                  <p className="text-xs text-center text-muted-foreground">
+                    <Droplets className="h-3 w-3 inline text-blue-500" />{" "}
+                    {weather.hourly.humidity[index].toFixed(0)}%
+                  </p>
+                  <p className="text-xs text-center text-muted-foreground">
+                    <CloudRain className="h-3 w-3 inline text-blue-500" />{" "}
+                    {weather.hourly.precipitationProbability[index].toFixed(0)}%
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* 7-Tage-Vorhersage */}
       <div className="border border-blue-200 rounded-lg bg-white shadow-lg overflow-hidden">
         <div className="bg-linear-to-r from-blue-50 to-indigo-50 px-6 py-4">
@@ -279,48 +321,6 @@ function WeatherPageContent() {
                 </p>
               </div>
             ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Stündliche Vorhersage */}
-      <div className="border border-indigo-200 rounded-lg bg-white shadow-lg overflow-hidden">
-        <div className="bg-linear-to-r from-indigo-50 to-purple-50 px-6 py-4">
-          <h2 className="text-2xl font-semibold text-indigo-900">
-            Stündliche Vorhersage
-          </h2>
-          <p className="text-sm text-muted-foreground mt-1">
-            Nächste 24 Stunden
-          </p>
-        </div>
-        <div className="p-6">
-          <div className="overflow-x-auto">
-            <div className="flex gap-4 pb-4">
-              {weather.hourly.time.map((timeStr, index) => (
-                <div
-                  key={index}
-                  className="border-2 border-indigo-200 rounded-lg p-3 min-w-[100px] space-y-2 bg-linear-to-br from-indigo-50 to-purple-50 hover:shadow-md transition-shadow"
-                >
-                  <p className="text-sm font-semibold text-center text-indigo-900">
-                    {new Date(timeStr).toLocaleTimeString("de-DE", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </p>
-                  <p className="text-xl font-bold text-center text-orange-600">
-                    {weather.hourly.temperature[index].toFixed(1)}°C
-                  </p>
-                  <p className="text-xs text-center text-muted-foreground">
-                    <Droplets className="h-3 w-3 inline text-blue-500" />{" "}
-                    {weather.hourly.humidity[index].toFixed(0)}%
-                  </p>
-                  <p className="text-xs text-center text-muted-foreground">
-                    <CloudRain className="h-3 w-3 inline text-blue-500" />{" "}
-                    {weather.hourly.precipitationProbability[index].toFixed(0)}%
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
