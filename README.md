@@ -76,6 +76,3 @@ Die App nutzt die Open-Meteo API:
 
 Keine API-Keys erforderlich! Open-Meteo ist eine kostenlose, offene Wetter-API.
 
-## Lizenz
-
-MIT
