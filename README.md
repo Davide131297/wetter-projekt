@@ -4,6 +4,8 @@ Eine moderne Wetter-Applikation gebaut mit Next.js, TypeScript, Tailwind CSS und
 
 Zur Webseite [hier klicken](https://wetter-projekt-webseite.vercel.app)
 
+Zur Flutter ab [hier klicken](https://wetter-r8bmbmi9o-davide131297s-projects.vercel.app/)
+
 ## Features
 
 - 🌤️ Aktuelle Wettervorhersage
